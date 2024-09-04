@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Firm(models.Model):
-    name = models.CharField(max_length=150)
-    phone = models.CharField(max_length=60)
-    address = models.CharField(max_length=255)
+    name = models.CharField(max_length=150, unique=True)
+    phone = models.CharField(max_length=60, unique=True)
+    address = models.CharField(max_length=255, unique=True)
     image = models.TextField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -15,7 +15,7 @@ class Firm(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
