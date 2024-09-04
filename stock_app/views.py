@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 from .models import Category, Firm, Product, Purchases, Sales, Brand
 from .serializers import CategorySerializer, FirmSerializer, ProductSerializer, PurchasesSerializer, SalesSerializer, BrandSerializer
@@ -7,6 +8,9 @@ from .serializers import CategorySerializer, FirmSerializer, ProductSerializer, 
 class CategoryMVS(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['name']
+    ordering_fields = ['name']
 
 
 class FirmMVS(ModelViewSet):
