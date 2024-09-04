@@ -18,13 +18,23 @@ class FirmSerializer(serializers.ModelSerializer):
 
 
 class BrandSerializer(serializers.ModelSerializer):
+    category_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Brand
         fields = "__all__"
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "category_name"]
+
+    def get_category_name(self, obj):
+        return [category.name for category in obj.category.all()]
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    brand = serializers.StringRelatedField()
+    brand_id = serializers.IntegerField()
+    category = serializers.StringRelatedField()
+    category_id = serializers.IntegerField()
+
     class Meta:
         model = Product
         fields = "__all__"
@@ -32,6 +42,15 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class PurchasesSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
+    firm = serializers.StringRelatedField()
+    firm_id = serializers.IntegerField()
+    brand = serializers.StringRelatedField()
+    brand_id = serializers.IntegerField()
+    product = serializers.StringRelatedField()
+    product_id = serializers.IntegerField()
+
     class Meta:
         model = Purchases
         fields = "__all__"
@@ -40,6 +59,13 @@ class PurchasesSerializer(serializers.ModelSerializer):
 
 
 class SalesSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
+    product = serializers.StringRelatedField()
+    product_id = serializers.IntegerField()
+    brand = serializers.StringRelatedField()
+    brand_id = serializers.IntegerField()
+
     class Meta:
         model = Sales
         fields = "__all__"

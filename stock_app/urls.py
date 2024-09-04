@@ -6,12 +6,12 @@ from .views import CategoryMVS, FirmMVS, BrandMVS, ProductMVS, PurchasesMVS, Sal
 
 router = DefaultRouter()
 
-router.register("categories/", CategoryMVS)
-router.register("firms/", FirmMVS)
-router.register("brands/", BrandMVS)
-router.register("products/", ProductMVS)
-router.register("purchases/", PurchasesMVS)
-router.register("sales/", SalesMVS)
+router.register("categories", CategoryMVS)
+router.register("firms", FirmMVS)
+router.register("brands", BrandMVS)
+router.register("products", ProductMVS)
+router.register("purchases", PurchasesMVS)
+router.register("sales", SalesMVS)
 
 
 urlpatterns = [
