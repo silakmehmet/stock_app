@@ -12,7 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "created_date", "updated_date"]
 
     def get_product_count(self, obj):
         return obj.product_category.count()
@@ -27,7 +27,7 @@ class FirmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Firm
         fields = "__all__"
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "created_date", "updated_date"]
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -36,7 +36,8 @@ class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
         fields = "__all__"
-        read_only_fields = ["id", "category_name"]
+        read_only_fields = ["id", "category_name",
+                            "created_date", "updated_date"]
 
     def get_category_name(self, obj):
         return [category.name for category in obj.category.all()]

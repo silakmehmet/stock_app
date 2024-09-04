@@ -7,6 +7,8 @@ class Firm(models.Model):
     phone = models.CharField(max_length=60)
     address = models.CharField(max_length=255)
     image = models.TextField(null=True, blank=True)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -14,6 +16,8 @@ class Firm(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=60)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Category"
@@ -27,6 +31,8 @@ class Brand(models.Model):
     name = models.CharField(max_length=60)
     image = models.TextField(null=True, blank=True)
     category = models.ManyToManyField(Category, related_name="brand_category")
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         categories = ", ".join([cat.name for cat in self.category.all()])
