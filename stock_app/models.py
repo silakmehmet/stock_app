@@ -26,9 +26,11 @@ class Category(models.Model):
 class Brand(models.Model):
     name = models.CharField(max_length=60)
     image = models.TextField(null=True, blank=True)
+    category = models.ManyToManyField(Category, related_name="brand_category")
 
     def __str__(self):
-        return self.name
+        categories = ", ".join([cat.name for cat in self.category.all()])
+        return f"{self.name} - {categories}"
 
 
 class Product(models.Model):
