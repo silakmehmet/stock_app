@@ -1,13 +1,26 @@
+from django.db.models import Sum
+
 from rest_framework import serializers
 
 from .models import Category, Firm, Product, Purchases, Sales, Brand
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    product_count = serializers.SerializerMethodField()
+    total_stock = serializers.SerializerMethodField()
+
     class Meta:
         model = Category
         fields = "__all__"
         read_only_fields = ["id"]
+
+    def get_product_count(self, obj):
+        return obj.product_category.count()
+
+    def get_total_stock(self, obj):
+        total_stock = sum(
+            [product.stock for product in obj.product_category.all()])
+        return total_stock
 
 
 class FirmSerializer(serializers.ModelSerializer):
