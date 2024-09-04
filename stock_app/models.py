@@ -57,6 +57,8 @@ class Purchases(models.Model):
     quantity = models.PositiveSmallIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     price_total = models.DecimalField(max_digits=10, decimal_places=2)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Purchase"
@@ -80,6 +82,8 @@ class Sales(models.Model):
     quantity = models.PositiveSmallIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     price_total = models.DecimalField(max_digits=10, decimal_places=2)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Sale"
