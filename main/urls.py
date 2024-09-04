@@ -28,5 +28,6 @@ urlpatterns = [
     path(' debug/', include('debug_toolbar.urls')),
     # App urls
     path("users/", include('users.urls')),
+    path("stocks/", include('stock_app.urls')),
 
 ]
