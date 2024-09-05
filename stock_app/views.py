@@ -4,9 +4,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Category, Firm, Product, Purchases, Sales, Brand
 from .serializers import CategorySerializer, CategoryWithProductSerializer, FirmSerializer, ProductSerializer, PurchasesSerializer, SalesSerializer, BrandSerializer
+from .mixins import UserMixin
 
 
-class CategoryMVS(ModelViewSet):
+class CategoryMVS(UserMixin, ModelViewSet):
     queryset = Category.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [SearchFilter, OrderingFilter]
@@ -19,26 +20,26 @@ class CategoryMVS(ModelViewSet):
         return CategorySerializer  # Default serializer without products
 
 
-class FirmMVS(ModelViewSet):
+class FirmMVS(UserMixin, ModelViewSet):
     queryset = Firm.objects.all()
     serializer_class = FirmSerializer
 
 
-class ProductMVS(ModelViewSet):
+class ProductMVS(UserMixin, ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
 
-class PurchasesMVS(ModelViewSet):
+class PurchasesMVS(UserMixin, ModelViewSet):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
 
 
-class SalesMVS(ModelViewSet):
+class SalesMVS(UserMixin, ModelViewSet):
     queryset = Sales.objects.all()
     serializer_class = SalesSerializer
 
 
-class BrandMVS(ModelViewSet):
+class BrandMVS(UserMixin, ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
