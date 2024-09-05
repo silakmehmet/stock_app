@@ -55,6 +55,15 @@ class ProductSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_date", "updated_date"]
 
 
+# For showing the details when search filter is used
+class CategoryWithProductSerializer(CategorySerializer):
+    products = ProductSerializer(
+        many=True, read_only=True, source="product_category")
+
+    class Meta(CategorySerializer.Meta):
+        fields = "__all__"
+
+
 class PurchasesSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     user_id = serializers.IntegerField()
