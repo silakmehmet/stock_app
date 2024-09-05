@@ -4,15 +4,16 @@ from .models import Category, Firm, Product, Purchases, Sales, Brand
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    user_id = serializers.IntegerField()
+    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.IntegerField(read_only=True)
     product_count = serializers.SerializerMethodField()
     total_stock = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
         fields = "__all__"
-        read_only_fields = ["id", "created_date", "updated_date"]
+        read_only_fields = ["id", "created_date",
+                            "updated_date", "user", "user_id"]
 
     def get_product_count(self, obj):
         return obj.product_category.count()
@@ -24,40 +25,44 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class FirmSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    user_id = serializers.IntegerField()
+    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Firm
         fields = "__all__"
-        read_only_fields = ["id", "created_date", "updated_date"]
+        read_only_fields = ["id", "created_date",
+                            "updated_date", "user", "user_id"]
 
 
 class BrandSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    user_id = serializers.IntegerField()
+    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.IntegerField(read_only=True)
     category_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Brand
         fields = "__all__"
-        read_only_fields = ["id", "category_name",
-                            "created_date", "updated_date"]
+        read_only_fields = ["id", "created_date",
+                            "updated_date", "user", "user_id"]
 
     def get_category_name(self, obj):
         return [category.name for category in obj.category.all()]
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    brand = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.IntegerField(read_only=True)
+    brand = serializers.StringRelatedField(read_only=True)
     brand_id = serializers.IntegerField()
-    category = serializers.StringRelatedField()
+    category = serializers.StringRelatedField(read_only=True)
     category_id = serializers.IntegerField()
 
     class Meta:
         model = Product
         fields = "__all__"
-        read_only_fields = ["id", "created_date", "updated_date"]
+        read_only_fields = ["id", "created_date",
+                            "updated_date", "user", "user_id", "brand", "category"]
 
 
 # For showing the details when search filter is used
@@ -70,32 +75,32 @@ class CategoryWithProductSerializer(CategorySerializer):
 
 
 class PurchasesSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    user_id = serializers.IntegerField()
-    firm = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.IntegerField(read_only=True)
+    firm = serializers.StringRelatedField(read_only=True)
     firm_id = serializers.IntegerField()
-    brand = serializers.StringRelatedField()
+    brand = serializers.StringRelatedField(read_only=True)
     brand_id = serializers.IntegerField()
-    product = serializers.StringRelatedField()
+    product = serializers.StringRelatedField(read_only=True)
     product_id = serializers.IntegerField()
 
     class Meta:
         model = Purchases
         fields = "__all__"
         read_only_fields = ["id", "price_total",
-                            "created_date", "updated_date"]
+                            "created_date", "updated_date", "user", "user_id", "firm", "brand", "product"]
 
 
 class SalesSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
-    user_id = serializers.IntegerField()
-    product = serializers.StringRelatedField()
+    user = serializers.StringRelatedField(read_only=True)
+    user_id = serializers.IntegerField(read_only=True)
+    product = serializers.StringRelatedField(read_only=True)
     product_id = serializers.IntegerField()
-    brand = serializers.StringRelatedField()
+    brand = serializers.StringRelatedField(read_only=True)
     brand_id = serializers.IntegerField()
 
     class Meta:
         model = Sales
         fields = "__all__"
         read_only_fields = ["id", "price_total",
-                            "created_date", "updated_date"]
+                            "created_date", "updated_date", "user", "user_id", "product", "brand"]
