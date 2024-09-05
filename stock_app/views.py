@@ -24,27 +24,40 @@ class FirmMVS(UserMixin, ModelViewSet):
     queryset = Firm.objects.all()
     serializer_class = FirmSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter]
+    search_fields = ["name"]
 
 
 class ProductMVS(UserMixin, ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ["name"]
+    ordering_fields = ["category", "brand"]
 
 
 class PurchasesMVS(UserMixin, ModelViewSet):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ["firm"]
+    ordering_fields = ["firm", "product"]
 
 
 class SalesMVS(UserMixin, ModelViewSet):
     queryset = Sales.objects.all()
     serializer_class = SalesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ["firm"]
+    ordering_fields = ["firm", "product"]
 
 
 class BrandMVS(UserMixin, ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter]
+    search_fields = ["name"]
