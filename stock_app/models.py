@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Firm(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="firm_user")
     name = models.CharField(max_length=150, unique=True)
     phone = models.CharField(max_length=60, unique=True)
     address = models.CharField(max_length=255, unique=True)
@@ -15,6 +17,8 @@ class Firm(models.Model):
 
 
 class Category(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="category_user")
     name = models.CharField(max_length=60, unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -28,6 +32,8 @@ class Category(models.Model):
 
 
 class Brand(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="brand_user")
     name = models.CharField(max_length=60)
     image = models.TextField(null=True, blank=True)
     category = models.ManyToManyField(Category, related_name="brand_category")
@@ -40,6 +46,8 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="product_user")
     name = models.CharField(max_length=100)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="product_category")
