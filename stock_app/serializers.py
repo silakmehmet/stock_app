@@ -4,6 +4,8 @@ from .models import Category, Firm, Product, Purchases, Sales, Brand
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
     product_count = serializers.SerializerMethodField()
     total_stock = serializers.SerializerMethodField()
 
@@ -22,6 +24,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class FirmSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
+
     class Meta:
         model = Firm
         fields = "__all__"
@@ -29,6 +34,8 @@ class FirmSerializer(serializers.ModelSerializer):
 
 
 class BrandSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField()
     category_name = serializers.SerializerMethodField()
 
     class Meta:
