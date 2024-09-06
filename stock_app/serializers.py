@@ -83,12 +83,14 @@ class PurchasesSerializer(serializers.ModelSerializer):
     brand_id = serializers.IntegerField()
     product = serializers.StringRelatedField(read_only=True)
     product_id = serializers.IntegerField()
+    category = serializers.StringRelatedField(
+        source="product.category", many=True, read_only=True)
 
     class Meta:
         model = Purchases
         fields = "__all__"
         read_only_fields = ["id", "price_total",
-                            "created_date", "updated_date", "user", "user_id", "firm", "brand", "product"]
+                            "created_date", "updated_date", "user", "user_id", "firm", "brand", "product", "category"]
 
 
 class SalesSerializer(serializers.ModelSerializer):
