@@ -104,3 +104,22 @@ class SalesSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ["id", "price_total",
                             "created_date", "updated_date", "user", "user_id", "product", "brand"]
+
+    def validate(self, data):
+        product_id = data.get('product_id')
+
+        if product_id is None:
+            raise serializers.ValidationError("Product ID is required.")
+
+        # Retrieving the product instance using the product_id
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            raise serializers.ValidationError("Invalid product ID.")
+
+        # Checking stock availability
+        if product.stock < data.get('quantity', 0):
+            raise serializers.ValidationError(
+                "You do not have enough stock to handle this operation.")
+
+        return data
