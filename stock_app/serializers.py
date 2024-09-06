@@ -62,7 +62,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
         read_only_fields = ["id", "created_date",
-                            "updated_date", "user", "user_id", "brand", "category"]
+                            "updated_date", "user", "user_id", "brand", "category", "stock"]
 
 
 # For showing the details when search filter is used
